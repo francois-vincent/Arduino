@@ -40,7 +40,7 @@ static bool buttonChangeState(int pin) {
   last_state = state;
   int count = 3;
   while (count) {
-    delay(10);
+    delay(30);
     if ((state=digitalRead(pin)) == last_state) {
       count --;
     }

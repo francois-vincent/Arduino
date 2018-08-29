@@ -1,5 +1,5 @@
 // LED blink for ESP-01
-// through Timer li
+// through SimpleTimer lib from https://github.com/schinken/SimpleTimer
 #include <SimpleTimer.h>
 #define LED_BUILTIN 1
 
