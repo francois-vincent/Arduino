@@ -1,10 +1,11 @@
 #include "U8g2lib.h"
 #include <WiFi.h>
+#include <Wifi_Credentials.h>
 
 U8X8_SSD1306_128X64_NONAME_4W_SW_SPI u8x8(18, 23, 15, 16, 4);  // SCK=18, MOSI=23, CS=15, DC=16, Res=4
 
-const char* ssid     = "Jeluga";
-const char* password = "GA123456789";
+const char* ssid     = JELUGA_SSID;
+const char* password = JELUGA_PASSWD;
 
 void setup() {
   u8x8.begin();

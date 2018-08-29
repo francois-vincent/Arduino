@@ -1,10 +1,12 @@
 #include <WiFi.h>
 #include <WiFiClient.h>
+#include <Wifi_Credentials.h>
+
 #define LED 1
 
 int pin_state = LOW;
-const char* ssid     = "Jeluga";
-const char* password = "GA123456789";
+const char* ssid     = JELUGA_SSID;
+const char* password = JELUGA_PASSWD;
 const char* raspi = "192.168.1.24";
 const int port = 5000;
 WiFiClient client;

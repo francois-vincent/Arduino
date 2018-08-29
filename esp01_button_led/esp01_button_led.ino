@@ -4,14 +4,16 @@
 
 #include <ESP8266WiFi.h>
 #include <WiFiClient.h>
+#include <Wifi_Credentials.h>
+
 #define LED_BUILTIN 1
 #define BUTTON 2
 
 int button_state = 1;
 int led_state = 0;
 
-const char* ssid     = "Jeluga";
-const char* password = "GA123456789";
+const char* ssid     = JELUGA_SSID;
+const char* password = JELUGA_PASSWD;
 const char* host_string = "Host: raspberrypi.local";
 const char* host = host_string+6;
 const int port = 5000;
