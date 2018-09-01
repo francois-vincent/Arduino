@@ -4,19 +4,23 @@
 
 #include <ESP8266WiFi.h>
 #include <WiFiClient.h>
+#include <ESP8266mDNS.h>
 #include <Wifi_Credentials.h>
+
+const char* ssid     = JELUGA_SSID;
+const char* password = JELUGA_PASSWD;
+const char* deviceid = "esp8266_button";
 
 #define LED_BUILTIN 1
 #define BUTTON 2
 
-int button_state = 1;
-int led_state = 0;
-
-const char* ssid     = JELUGA_SSID;
-const char* password = JELUGA_PASSWD;
 const char* host_string = "Host: raspberrypi.local";
 const char* host = host_string+6;
 const int port = 5000;
+
+int button_state = 1;
+int led_state = 0;
+
 WiFiClient client;
 
 static void ToggleLED()
@@ -52,15 +56,14 @@ static bool buttonChangeState(int pin) {
   return true;
 }
 
-static void connectWifi() {
-  if (WiFi.status() != WL_CONNECTED) {
-    WiFi.begin(ssid, password);
-    while (WiFi.status() != WL_CONNECTED) {
-      ToggleLED();
-      delay(300);
-    }
-    shutdownLED();
+static void connectWiFi() {
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED) {
+    ToggleLED();
+    delay(300);
   }
+  shutdownLED();
+  MDNS.begin(deviceid);
 }
 
 static bool ConnectRaspi()
@@ -79,10 +82,10 @@ static void ToggleRaspiLED()
 void setup() {
   pinMode(BUTTON, INPUT);
   pinMode(LED_BUILTIN, OUTPUT);
+  connectWiFi();
 }
 
 void loop() {
-  connectWifi();
   if (buttonChangeState(BUTTON) && !button_state) {
     if (ConnectRaspi()) {
       ToggleRaspiLED();
